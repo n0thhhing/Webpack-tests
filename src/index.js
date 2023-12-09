@@ -1,7 +1,8 @@
 import Client from './Discord/Bot.ts'
+import { token } from '../config/config.json'
 
-const botToken = process.env.PROPLAM_BOT
-const bot = new Client({ token: botToken, logs: true })
+const botToken = token
+const bot = new Client(botToken, true)
 
 const channelId = '1168361318017925220'
 const userId = '690666917328977941'

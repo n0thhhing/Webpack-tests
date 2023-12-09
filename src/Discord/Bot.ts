@@ -12,24 +12,20 @@ class Client {
   private token: BotToken
   private logging: boolean
 
-  constructor({ token: BotToken, logs: boolean = false }) {
-    if (!token) {
-      console.error('No token provided.')
-    }
-
+  constructor(token: BotToken, logs: boolean = false) {
     this.token = token
     this.sendMessage = this.sendMessage.bind(this)
-    if (logs === true) {
-    } else if (logs === false) {
+    this.logging = logs
+    if (this.logging === true) {
+    } else if (this.logging === false) {
       console.log(
         `${chalk.blue('LOGS')} - logs are enabled by default
-     if you would like to disable logs, set 
-     "${chalk.blue('log') + `: ` + chalk.red('false')}" 
+     if you would like to disable logs, set
+     "${chalk.blue('log') + `: ` + chalk.red('false')}"
      in the ${chalk.blue('Client')} constructor\n`,
       )
       this.logging = true
     }
-    this.logging = logs
   }
 
   /**

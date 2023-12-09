@@ -1,3 +1,2 @@
-type WebhookUrl = string
-type BotToken = string
-export { WebhookUrl, BotToken }
+export type WebhookUrl = string
+export type BotToken = string
