@@ -4,3 +4,4 @@ node_modules
 .replit
 replit.nix
 config/config.json
+dist/bundle.js

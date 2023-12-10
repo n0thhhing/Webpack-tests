@@ -9,7 +9,7 @@
     "analyze": "webpack --profile --json > stats.json && webpack-bundle-analyzer stats.json && prettier --write stats.json",
     "build": "webpack --config webpack.config.cjs",
     "start": "webpack --config webpack.config.cjs && node dist/bundle.js && npm run format",
-    "format": "prettier --write 'src/**/*.+(js|ts)' && prettier --write './*.{js,cjs,mjs,jsx,ts,tsx,json}'",
+    "format": "prettier --write 'src/**/*.+(js|ts)' && prettier --write './*.{js,cjs,mjs,jsx,ts,tsx,json}' && prettier --write './config/*.{js,cjs,mjs,jsx,ts,tsx,json}",
     "update": "npm i node@latest && npm i npm"
   },
   "keywords": [],
