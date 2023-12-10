@@ -3,5 +3,5 @@ node_modules
 .ump
 .replit
 replit.nix
-dist/*.js
-			config/*.json
+dist
+config/*.json
