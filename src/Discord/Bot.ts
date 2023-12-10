@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import chalk from 'chalk'
-import type { BotToken } from './Types'
+import type { BotToken, UserResponse, GuildResponse, RequestData, DiscordApiResponse } from './Types'
 
 /**
  * DiscordBot class for interacting with the Discord API.
@@ -28,43 +28,47 @@ class Client {
     }
   }
 
-  /**
-   * Generic method for making requests to the Discord API.
-   *
-   * @param {string} endpoint - The API endpoint.
-   * @param {"get" | "post" | "put" | "delete" | "patch"} method - The HTTP method.
-   * @param {any} data - The data to be sent in the request body (optional).
-   * @returns {Promise<any>} - A promise that resolves to the API response data.
-   */
-  private async makeRequest(
-    endpoint: string,
-    method: 'get' | 'post' | 'put' | 'delete' | 'patch',
-    data?: any,
-  ): Promise<any> {
-    const headers = {
-      Authorization: `Bot ${this.token}`,
-      'Content-Type': 'application/json',
-    }
+ /**
+  * Generic method for making requests to the Discord API.
+  *
+  * @param {string} endpoint - The API endpoint.
+  * @param {"get" | "post" | "put" | "delete" | "patch"} method - The HTTP method.
+  * @param {RequestData} data - The data to be sent in the request body (optional).
+  * @returns {Promise<any>} - A promise that resolves to the API response data.
+  */
+ private async makeRequest<T>(
+   endpoint: string,
+   method: 'get' | 'post' | 'put' | 'delete' | 'patch',
+   data?: RequestData,
+ ): Promise<T> {
+   const headers = {
+     Authorization: `Bot ${this.token}`,
+     'Content-Type': 'application/json',
+   };
 
-    try {
-      let response = await axios({
-        method,
-        url: `https://discord.com/api/v10${endpoint}`,
-        data,
-        headers,
-      })
-      if (response) {
-        if (this.logging) {
-          console.log(`response sent to endpoint: ${chalk.green(endpoint)}`)
-        }
-      }
-      return response.data
-    } catch (error: any) {
-      console.error('Discord API Error:', error.response?.data || error.message)
-      throw error
-    }
-  }
+   try {
+     const response: AxiosResponse<T> = await axios({
+       method,
+       url: `https://discord.com/api/v10${endpoint}`,
+       data,
+       headers,
+     });
 
+     if (response) {
+       if (this.logging) {
+         console.log(`response sent to endpoint: ${chalk.green(endpoint)}`);
+       }
+     }
+     return response.data;
+   } catch (error: AxiosError) {
+     if (axios.isAxiosError(error)) {
+       console.error('Discord API Error:', error.response?.data || error.message);
+     } else {
+       console.error('Axios Error:', error.message);
+     }
+     throw error;
+   }
+ }
   /**
    * Sends a message to a Discord channel.
    *
@@ -80,25 +84,25 @@ class Client {
     return this.makeRequest(`/channels/${channelId}/messages`, 'post', data)
   }
 
-  /**
-   * Retrieves information about a Discord user.
-   *
-   * @param {string} userId - The ID of the user.
-   * @returns {Promise<any>} - A promise that resolves to the user data.
-   */
-  public async getUser(userId: string): Promise<any> {
-    return this.makeRequest(`/users/${userId}`, 'get')
-  }
+ /**
+  * Retrieves information about a Discord user.
+  *
+  * @param {string} userId - The ID of the user.
+  * @returns {Promise<UserResponse>} - A promise that resolves to the user data.
+  */
+ public async getUser(userId: string): Promise<UserResponse> {
+   return this.makeRequest(`/users/${userId}`, 'get');
+ }
 
-  /**
-   * Retrieves information about a Discord guild.
-   *
-   * @param {string} guildId - The ID of the guild.
-   * @returns {Promise<any>} - A promise that resolves to the guild data.
-   */
-  public async getGuild(guildId: string): Promise<any> {
-    return this.makeRequest(`/guilds/${guildId}`, 'get')
-  }
+ /**
+  * Retrieves information about a Discord guild.
+  *
+  * @param {string} guildId - The ID of the guild.
+  * @returns {Promise<GuildResponse>} - A promise that resolves to the guild data.
+  */
+ public async getGuild(guildId: string): Promise<GuildResponse> {
+   return this.makeRequest(`/guilds/${guildId}`, 'get');
+ }
 
   /**
    * Creates a new channel in a Discord guild.

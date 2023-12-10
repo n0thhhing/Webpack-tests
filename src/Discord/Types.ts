@@ -64,3 +64,19 @@ export interface EmbedObject {
     inline?: boolean
   }[]
 }
+
+export interface UserResponse {
+  id: string;
+  username: string;
+  avatar: string | null;
+  discriminator: string;
+}
+
+export interface GuildResponse {
+  id: string;
+  name: string;
+}
+
+export interface RequestData {
+  [key: string]: any;
+}
