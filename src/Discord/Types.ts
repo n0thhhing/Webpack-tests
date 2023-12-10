@@ -66,17 +66,17 @@ export interface EmbedObject {
 }
 
 export interface UserResponse {
-  id: string;
-  username: string;
-  avatar: string | null;
-  discriminator: string;
+  id: string
+  username: string
+  avatar: string | null
+  discriminator: string
 }
 
 export interface GuildResponse {
-  id: string;
-  name: string;
+  id: string
+  name: string
 }
 
 export interface RequestData {
-  [key: string]: any;
+  [key: string]: any
 }
