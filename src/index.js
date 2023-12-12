@@ -14,6 +14,3 @@ bot.dm(userId, 'test').catch((error) => {
 bot.downloadImage(
   'https://media.discordapp.net/attachments/1137570160417443902/1183933161089015858/wIR8FOoq.jpg',
 )
-
-const response = bot.getConnections()
-console.log(response.data)

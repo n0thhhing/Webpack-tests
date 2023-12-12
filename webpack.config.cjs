@@ -2,6 +2,7 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
+const { BannerPlugin } = require('webpack')
 
 module.exports = {
   entry: './src/index.js',
@@ -14,7 +15,7 @@ module.exports = {
   watchOptions: {
     ignored: /node_modules|dist|build|.gitignore|.upm/,
   },
-  performance: false, // Disable performance hints
+  performance: false,
   experiments: {
     outputModule: true,
   },
@@ -91,6 +92,15 @@ module.exports = {
       typescript: {
         configFile: path.resolve(__dirname, 'tsconfig.json'),
       },
+    }),
+    new BannerPlugin({
+      raw: true,
+      banner: `
+        import { fileURLToPath } from 'url';
+        import { dirname } from 'path';
+        const __filename = fileURLToPath(import.meta.url);
+        const __dirname = dirname(__filename);
+      `,
     }),
   ],
 }

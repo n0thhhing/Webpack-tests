@@ -40,5 +40,8 @@
     "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
+  },
+  "devDependencies": {
+    "imports-loader": "^4.0.1"
   }
 }
