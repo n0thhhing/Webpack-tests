@@ -27,7 +27,7 @@ class WebhookUtils {
    * Sets the rate limit of the webhook
    *
    * @param {number} rateLimitPerUser - The rate limit of the webhook
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   private async setRateLimit(rateLimitPerUser: number): Promise<void> {
     try {
@@ -43,7 +43,7 @@ class WebhookUtils {
    * Sets the owner of the webhook
    *
    * @param {string} userID - The ID of the new owner
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   private async setWebhookOwner(userID: string): Promise<void> {
     await axios.patch<void>(this.webhookUrl, { owner_id: userID })
@@ -54,7 +54,7 @@ class WebhookUtils {
    *
    * @param {string} message - The message content
    * @param {string} filePath - The path to the file
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async sendFile(message: string, filePath: string): Promise<void> {
     try {
@@ -104,7 +104,7 @@ class WebhookUtils {
    * Sends a message to the Discord channel
    *
    * @param {string} message - The message content
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async sendMessage(message: string): Promise<void> {
     try {
@@ -131,7 +131,7 @@ class WebhookUtils {
    *
    * @param {string} imagePath - The path to the new image
    * @param {string} newName - The new name for the webhook
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async updateWebhook(imagePath: string, newName: string): Promise<void> {
     const image = fs.readFileSync(imagePath)
@@ -155,7 +155,7 @@ class WebhookUtils {
    * Deletes a message from the Discord channel by message ID
    *
    * @param {string} messageId - The ID of the message to be deleted
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async deleteMessage(messageId: string): Promise<void> {
     try {
@@ -181,7 +181,7 @@ class WebhookUtils {
    * Sends a simple embed with specified content to the Discord channel
    *
    * @param {string} content - The content of the embed
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async sendSimpleEmbed(content: string): Promise<void> {
     try {
@@ -210,7 +210,7 @@ class WebhookUtils {
   /**
    * Deletes all messages from the Discord channel (requires MANAGE_WEBHOOKS permission)
    *
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async deleteAllMessages(): Promise<void> {
     try {
@@ -233,7 +233,7 @@ class WebhookUtils {
   /**
    * Fetches information about the webhook itself
    *
-   * @returns {Promise<WebhookInfoResponse>}
+   * @returns {WebhookInfoResponse}
    */
   async info(): Promise<WebhookInfoResponse> {
     try {
@@ -260,7 +260,7 @@ class WebhookUtils {
    * Sends multiple embeds in a single message to the Discord channel
    *
    * @param {EmbedObject[]} embedArray - Array of embed objects
-   * @returns {Promise<void>}
+   * @returns {void}
    */
   async sendMultipleEmbeds(embedArray: EmbedObject[]): Promise<void> {
     try {
